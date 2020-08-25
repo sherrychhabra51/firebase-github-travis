@@ -1,0 +1,177 @@
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /user {
+      match /avatars/iam/{allPaths=**} {
+        allow write: if request.resource.size < 10 * 1024 * 1024 && request.resource.contentType.matches('image/.*') && request.auth.token['user'];
+        allow read: if request.auth.token['user'];
+      }
+
+      match /avatars/profile/{userId}/{allPaths=**} {
+        allow write: if request.resource.size < 10 * 1024 * 1024 && request.resource.contentType.matches('image/.*') && request.auth.uid == userId;
+        allow read: if request.auth.uid == userId;
+      }
+    }
+
+    match /customers {
+      match /customerProfile/{allPaths=**} {
+        allow write: if request.resource.contentType.matches('image/.*') && request.auth.token['customers'];
+        allow read: if request.auth.token['customers'];
+      }
+      match /customerDocs/{allPaths=**} {
+        allow write: if request.auth.token['customers'];
+        allow read: if request.auth.token['customers'];
+      }
+    }
+
+    match /suppliers {
+      match /supplierProfile/{allPaths=**} {
+        allow write: if request.resource.contentType.matches('image/.*') && request.auth.token['suppliers'];
+        allow read: if request.auth.token['suppliers'];
+      }
+      match /supplierDocs/{allPaths=**} {
+        allow write: if request.auth.token['suppliers'];
+        allow read: if request.auth.token['suppliers'];
+      }
+    }
+
+    match /staff {
+      match /staffProfile/{allPaths=**} {
+        allow write: if request.resource.contentType.matches('image/.*') && request.auth.token['staff'];
+        allow read: if request.auth.token['staff'];
+      }
+      match /staffCv/{allPaths=**} {
+        allow write: if request.auth.token['staff'];
+        allow read: if request.auth.token['staff'];
+      }
+      match /staffDocuments/{allPaths=**} {
+        allow write: if request.auth.token['staff'];
+        allow read: if request.auth.token['staff'];
+      }
+    }
+
+    match /products {
+      match /productImage/{allPaths=**} {
+        allow write: if request.resource.contentType.matches('image/.*') && request.auth.token['products'];
+        allow read: if request.auth.token['products'];
+      }
+    }
+
+    match /brands {
+      match /brandCover/{allPaths=**} {
+        allow write: if request.resource.contentType.matches('image/.*') && request.auth.token['brands'];
+        allow read: if request.auth.token['brands'];
+      }
+    }
+
+    match /categories {
+      match /categoryCover/{allPaths=**} {
+        allow write: if request.resource.contentType.matches('image/.*') && request.auth.token['categories'];
+        allow read: if request.auth.token['categories'];
+      }
+    }
+
+    match /expenses {
+      match /expenseCover/{allPaths=**} {
+        allow write: if request.resource.contentType.matches('image/.*') && request.auth.token['expenses'];
+        allow read: if request.auth.token['expenses'];
+      }
+      match /expenseDocs/{allPaths=**} {
+        allow write: if request.auth.token['expenses'];
+        allow read: if request.auth.token['expenses'];
+      }
+      match /expenseDoc/{allPaths=**} {
+        allow write: if request.auth.token['expenses'];
+        allow read: if request.auth.token['expenses'];
+      }
+    }
+
+    match /assets {
+      match /assetImage/{allPaths=**} {
+        allow write: if request.resource.contentType.matches('image/.*') && request.auth.token['assets'];
+        allow read: if request.auth.token['assets'];
+      }
+      match /assetDocs/{allPaths=**} {
+        allow write: if request.auth.token['assets'];
+        allow read: if request.auth.token['assets'];
+      }
+    }
+
+    match /devices {
+      match /deviceImage/{allPaths=**} {
+        allow write: if request.resource.contentType.matches('image/.*') && request.auth.token['devices'];
+        allow read: if request.auth.token['devices'];
+      }
+      match /deviceDocs/{allPaths=**} {
+        allow write: if request.auth.token['devices'];
+        allow read: if request.auth.token['devices'];
+      }
+    }
+
+    match /notice {
+      match /noticeCover/{allPaths=**} {
+        allow write: if request.resource.contentType.matches('image/.*') && request.auth.token['notice'];
+        allow read: if request.auth.token['notice'];
+      }
+    }
+
+    match /damages {
+      match /damageCover/{allPaths=**} {
+        allow write: if request.resource.contentType.matches('image/.*') && request.auth.token['damages'];
+        allow read: if request.auth.token['damages'];
+      }
+      match /damageDocs/{allPaths=**} {
+        allow write: if request.auth.token['damages'];
+        allow read: if request.auth.token['damages'];
+      }
+    }
+
+    match /leave {
+      match /leaveDocs/{allPaths=**} {
+        allow write: if request.auth.token['leave'];
+        allow read: if request.auth.token['leave'];
+      }
+    }
+
+    match /payroll {
+      match /payrollDocs/{allPaths=**} {
+        allow write: if request.auth.token['payroll'];
+        allow read: if request.auth.token['payroll'];
+      }
+    }
+
+    match /documents {
+      match /documentFile/{allPaths=**} {
+        allow write: if request.auth.token['documents'];
+        allow read: if request.auth.token['documents'];
+      }
+    }
+
+    match /paymentMethods {
+      match /paymentMethodLogo/{allPaths=**} {
+        allow write: if request.resource.contentType.matches('image/.*') && request.auth.token['paymentMethods'];
+        allow read: if request.auth.token['paymentMethods'];
+      }
+    }
+
+    match /memos {
+      match /memosCover/{allPaths=**} {
+        allow write: if request.resource.contentType.matches('image/.*') && request.auth.token['memos'];
+        allow read: if request.auth.token['memos'];
+      }
+    }
+
+    match /holiday {
+      match /holidayCover/{allPaths=**} {
+        allow write: if request.resource.contentType.matches('image/.*') && request.auth.token['holiday'];
+        allow read: if request.auth.token['holiday'];
+      }
+    }
+
+    match /stall {
+      match /stallCover/{allPaths=**} {
+        allow write: if request.resource.contentType.matches('image/.*') && request.auth.token['stall'];
+        allow read: if request.auth.token['stall'];
+      }
+    }
+  }
+}
